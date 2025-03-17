@@ -34,6 +34,7 @@ class OurTeamController extends Controller
             ->when($search, function ($query, $search) {
                 return $query->where('name', 'like', "%$search%")
                              ->orWhere('occupation', 'like', "%$search%")
+                             ->orWhere('grade', 'like', "%$search%")
                              ->orWhere('location', 'like', "%$search%");
             })
             ->when($occupation, function ($query, $occupation) {
