@@ -27,6 +27,7 @@ class OurTeamController extends Controller
     {
         $search = $request->input('search');
         $occupation = $request->input('occupation');
+        $grade = $request->input('grade');
         $location = $request->input('location'); // Get selected location
 
         $teams = OurTeam::query()
@@ -38,17 +39,21 @@ class OurTeamController extends Controller
             ->when($occupation, function ($query, $occupation) {
                 return $query->where('occupation', $occupation);
             })
+            ->when($grade, function ($query, $grade) {
+                return $query->where('grade', $grade);
+            })
             ->when($location, function ($query, $location) {
                 return $query->where('location', $location);
             })
             ->orderByDesc('id')
             ->get();
 
-        $occupations = OurTeam::select('occupation')->distinct()->pluck('occupation');
-        // Get unique locations for filter dropdown
+            $occupations = OurTeam::select('occupation')->distinct()->pluck('occupation');
+            $grades = OurTeam::select('grade')->distinct()->pluck('grade');
+            // Get unique locations for filter dropdown
         $locations = OurTeam::select('location')->distinct()->pluck('location');
 
-        return view('admin.teams.index', compact('teams', 'occupations', 'locations'));
+        return view('admin.teams.index', compact('teams', 'occupations', 'grades', 'locations'));
     }
 
 

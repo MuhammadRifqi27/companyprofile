@@ -13,6 +13,7 @@ class OurTeam extends Model
     protected $fillable = [
         'name',
         'occupation',
+        'grade',
         'avatar',
         'location'
     ];

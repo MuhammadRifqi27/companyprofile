@@ -31,6 +31,12 @@
                     </div>
 
                     <div class="mt-4">
+                        <x-input-label for="grade" :value="__('grade')" />
+                        <x-text-input id="grade" class="block mt-1 w-full" type="text" name="grade" :value="old('grade')" required autofocus autocomplete="grade" />
+                        <x-input-error :messages="$errors->get('grade')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
                         <x-input-label for="location" :value="__('location')" />
                         <x-text-input id="location" class="block mt-1 w-full" type="text" name="location" :value="old('location')" required autofocus autocomplete="location" />
                         <x-input-error :messages="$errors->get('location')" class="mt-2" />

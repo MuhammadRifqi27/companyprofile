@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('occupation');
+            $table->string('grade');
             $table->string('avatar');
             $table->string('location');
             $table->softDeletes();

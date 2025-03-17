@@ -28,6 +28,14 @@
                         <x-input-error :messages="$errors->get('occupation')" class="mt-2" />
                     </div>
 
+                    <!-- Grade Field -->
+                    <div class="mt-4">
+                        <x-input-label for="grade" :value="__('Grade')" />
+                        <x-text-input id="grade" class="block mt-1 w-full" type="text" name="grade"
+                            value="{{ old('grade', $team->grade) }}" required autofocus autocomplete="grade" />
+                        <x-input-error :messages="$errors->get('grade')" class="mt-2" />
+                    </div>
+
                     <!-- Location Field -->
                     <div class="mt-4">
                         <x-input-label for="location" :value="__('Location')" />

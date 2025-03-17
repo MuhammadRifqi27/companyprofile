@@ -65,6 +65,12 @@
                                 @endforeach
                             </select>
         
+                            <select name="grade"  class="py-2 px-8 bg-white-500 text-gray-500 rounded">
+                                <option value="">All Grade</option>
+                                @foreach ($grades as $grade)
+                                    <option value="{{ $grade }}" {{ request('grade') == $grade ? 'selected' : '' }}>{{ $grade }}</option>
+                                @endforeach
+                            </select>
                             <select name="location"  class="py-2 px-8 bg-white-500 text-gray-500 rounded">
                                 <option value="">All Locations</option>
                                 @foreach ($locations as $loc)
@@ -87,6 +93,7 @@
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Avatar</th>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Occupation</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Grade</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Location</th>
                                 <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
                             </tr>
@@ -102,6 +109,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ $team->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $team->occupation }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $team->grade }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $team->location }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                                      <a href="{{ route('admin.teams.edit', $team) }}" 
