@@ -56,13 +56,34 @@
                             </button>
                         </form>
                     </div>
+                    <div class="relative mt-1">
+                        <form action="{{ route('admin.teams.index') }}" method="GET">                    
+                            <select name="occupation" class="py-2 px-8 bg-white-500 text-gray-500 rounded">
+                                <option value="">All Occupations</option>
+                                @foreach ($occupations as $ocp)
+                                    <option value="{{ $ocp }}" {{ request('occupation') == $ocp ? 'selected' : '' }}>{{ $ocp }}</option>
+                                @endforeach
+                            </select>
+        
+                            <select name="location"  class="py-2 px-8 bg-white-500 text-gray-500 rounded">
+                                <option value="">All Locations</option>
+                                @foreach ($locations as $loc)
+                                    <option value="{{ $loc }}" {{ request('location') == $loc ? 'selected' : '' }}>{{ $loc }}</option>
+                                @endforeach
+                            </select>
+        
+                            <button class="font-bold ms-2 py-2 px-4 bg-indigo-700 text-white rounded" type="submit">Filter</button>
+                        </form>
+                    </div>
                 </div>
+
 
                 <!--MAIN TABLE -->
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                         <thead class="bg-gray-100 border-b">
                             <tr>
+                                <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">No</th>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Avatar</th>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Occupation</th>
@@ -73,7 +94,8 @@
                         <tbody class="divide-y divide-gray-200">
                             @forelse($teams as $team)
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{{$loop->iteration}}</td>
+                            <td class="px-6 py-4 whitespace-nowrap">
                                     <img src="{{ Storage::url($team->avatar) }}" 
                                          alt="Team Avatar" 
                                          class="rounded-2xl object-cover w-[50px] h-[50px]">
@@ -82,7 +104,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $team->occupation }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $team->location }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                    <a href="{{ route('admin.teams.edit', $team) }}" 
+                                     <a href="{{ route('admin.teams.edit', $team) }}" 
                                         class="inline-flex items-center px-3 py-1.5 text-sm font-semibold text-yellow-600 hover:text-yellow-800 bg-yellow-100 rounded-lg">
                                         Edit
                                     </a>

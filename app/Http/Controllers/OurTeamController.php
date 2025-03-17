@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTeamRequest;
+use App\Http\Requests\UpdateTeamRequest;
 use App\Models\OurTeam;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -10,18 +11,47 @@ use Illuminate\Support\Facades\Storage;
 
 class OurTeamController extends Controller
 {
+    // public function index(Request $request)
+    // {
+    //     $search = $request->input('search');
+
+    //     $teams = OurTeam::when($search, function ($query, $search) {
+    //         return $query->where('name', 'like', "%$search%")
+    //                      ->orWhere('occupation', 'like', "%$search%")
+    //                      ->orWhere('location', 'like', "%$search%");
+    //     })->orderByDesc('id')->paginate(10);
+
+    //     return view('admin.teams.index', compact('teams'));
+    // }
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $occupation = $request->input('occupation');
+        $location = $request->input('location'); // Get selected location
 
-        $teams = OurTeam::when($search, function ($query, $search) {
-            return $query->where('name', 'like', "%$search%")
-                         ->orWhere('occupation', 'like', "%$search%")
-                         ->orWhere('location', 'like', "%$search%");
-        })->orderByDesc('id')->paginate(10);
+        $teams = OurTeam::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', "%$search%")
+                             ->orWhere('occupation', 'like', "%$search%")
+                             ->orWhere('location', 'like', "%$search%");
+            })
+            ->when($occupation, function ($query, $occupation) {
+                return $query->where('occupation', $occupation);
+            })
+            ->when($location, function ($query, $location) {
+                return $query->where('location', $location);
+            })
+            ->orderByDesc('id')
+            ->get();
 
-        return view('admin.teams.index', compact('teams'));
+        $occupations = OurTeam::select('occupation')->distinct()->pluck('occupation');
+        // Get unique locations for filter dropdown
+        $locations = OurTeam::select('location')->distinct()->pluck('location');
+
+        return view('admin.teams.index', compact('teams', 'occupations', 'locations'));
     }
+
+
 
     public function create()
     {
@@ -36,9 +66,10 @@ class OurTeamController extends Controller
 
                 if ($request->hasFile('avatar')) {
                     $avatarPath = $request->file('avatar')->store('avatars', 'public');
+                    $validated['avatar'] = $avatarPath;
                 }
 
-                OurTeam::create($validated);
+                $newTeam = OurTeam::create($validated);
             });
 
             return redirect()->route('admin.teams.index')->with('success', 'Team added successfully!');
@@ -57,23 +88,27 @@ class OurTeamController extends Controller
         return view('admin.teams.edit', compact('team'));
     }
 
-    public function update(StoreTeamRequest $request, OurTeam $team)
+    public function update(UpdateTeamRequest $request, OurTeam $team)
     {
         try {
             DB::transaction(function() use ($request, $team) {
                 $validated = $request->validated();
-    
+
                 if ($request->hasFile('avatar')) {
+                    if ($team->avatar && Storage::exists($team->avatar)) {
+                        Storage::delete($team->avatar);
+                    }
+
                     $avatarPath = $request->file('avatar')->store('avatars', 'public');
                     $validated['avatar'] = $avatarPath;
                 }
-    
+
                 $team->update($validated);
             });
-    
-            return redirect()->route('admin.teams.index')->with('success', 'Team member updated successfully!');
+
+            return redirect()->route('admin.teams.index')->with('success', 'Teams updated successfully!');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'An error occurred while updating the team member.');
+            return redirect()->back()->with('error', 'An error occurred while updating the product: ' . $e->getMessage());
         }
     }
 
