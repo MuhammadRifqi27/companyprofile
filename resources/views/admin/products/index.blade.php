@@ -60,14 +60,14 @@
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white shadow-md rounded-lg overflow-hidden">
                         <thead class="bg-gray-100 border-b">
-                            <tr>
+                            <!-- <tr>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Image</th>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Tagline</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">FIle</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Date</th>
                                 <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
-                            </tr>
+                            </tr> -->
                         </thead>
                         <tbody class="divide-y divide-gray-200">
                             @forelse($products as $product)
