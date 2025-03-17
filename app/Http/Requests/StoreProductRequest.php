@@ -25,6 +25,7 @@ class StoreProductRequest extends FormRequest
             'name'=> ['required', 'string', 'max:255'],
             'tagline'=> ['required', 'string', 'max:255'],
             'thumbnail'=> ['required', 'image', 'mimes:png,jpg,jpeg'],
+            'file' => ['required','file', 'mimes:pdf,docx,xslx,csv'],
             'about'=> ['required', 'string', 'max:255'],
         ];
     }

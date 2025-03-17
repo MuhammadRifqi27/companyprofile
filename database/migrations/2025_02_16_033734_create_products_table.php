@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('tagline');
             $table->string('thumbnail');
+            $table->string('file');
             $table->string('about');
             $table->softDeletes();
             $table->timestamps();

@@ -26,6 +26,7 @@ class UpdateProductRequest extends FormRequest
             'name'=> ['required', 'string', 'max:255'],
             'tagline'=> ['required', 'string', 'max:255'],
             'thumbnail'=> ['sometimes', 'iamge', 'mimes:png,jpg,jpeg'],
+            'file'=> ['sometimes', 'file', 'mimes:pdf,docx,xlsx,csv'],
             'about'=> ['required', 'string', 'max:255'],
             'keypoints.*'=> ['required', 'string', 'max:255'],
         ];

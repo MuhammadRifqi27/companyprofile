@@ -45,6 +45,10 @@ class ProductController extends Controller
                 $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
                 $validated['thumbnail'] = $thumbnailPath;
             }
+            if ($request->hasFile('file')) {
+                $filePath = $request->file('file')->store('files', 'public');
+                $validated['file'] = $filePath;
+            }
 
             $newProduct = Product::create($validated);
         });
@@ -85,6 +89,14 @@ class ProductController extends Controller
 
                     $thumbnailPath = $request->file('thumbnail')->store('thumbnails', 'public');
                     $validated['thumbnail'] = $thumbnailPath;
+                }
+                if ($request->hasFile('file')) {
+                    if ($product->file && Storage::exists($product->file)) {
+                        Storage::delete($product->file);
+                    }
+
+                    $filePath = $request->file('file')->store('files', 'public');
+                    $validated['file'] = $filePath;
                 }
 
                 $product->update($validated);

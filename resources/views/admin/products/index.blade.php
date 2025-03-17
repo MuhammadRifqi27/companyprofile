@@ -64,6 +64,7 @@
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Image</th>
                                 <th class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Tagline</th>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">FIle</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Date</th>
                                 <th class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
                             </tr>
@@ -78,6 +79,16 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">{{ $product->name }}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">{{ $product->tagline }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <a href="{{ Storage::url($product->file) }}" 
+                                    class="text-blue-500 hover:underline flex items-center gap-2 justify-center"
+                                    target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5v-9m0 9l-3-3m3 3l3-3M9 3h6m-9 18h12a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0018 4.5H6A2.25 2.25 0 003.75 6.75v12A2.25 2.25 0 006 21z" />
+                                        </svg>
+                                        Download File
+                                    </a>
+                                </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-800">
                                     {{ \Carbon\Carbon::parse($product->created_at)->format('d F Y') }}
                                 </td>

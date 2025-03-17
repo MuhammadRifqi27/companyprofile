@@ -36,6 +36,22 @@
                     <x-text-input id="thumbnail" class="block mt-1 w-full" type="file" name="thumbnail" autofocus autocomplete="thumbnail" />
                     <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
                 </div>
+                <!-- Thumbnail Field -->
+                <div class="mt-4">
+                    <x-input-label for="file" :value="__('File')" />
+                    <x-text-input id="file" class="block mt-1 w-full" type="file" name="file" autofocus autocomplete="file"/>
+                    <x-input-error :messages="$errors->get('file')" class="mt-2" />
+                    @if(isset($product) && $product->file)
+                        <div class="mt-2">
+                            <p class="text-black-900 font-bold">File saat ini: 
+                                <a href="{{ Storage::url($product->file) }}" class="text-blue-500 hover:underline" target="_blank">
+                                    Lihat File
+                                </a>
+                            </p>
+                        </div>
+                    @endif
+                </div>
+
 
                 <!-- About Field -->
                 <div class="mt-4">

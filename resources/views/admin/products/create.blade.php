@@ -8,13 +8,6 @@
     <div class="py-12">
         <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden p-10 shadow-sm sm:rounded-lg"> 
-                @if ($errors->any())
-                    @foreach ($errors->all() as $error )
-                        <div class="py-3 w-full rounded-3xl bg-red-500 text-white  ">
-                            {{ $error }}
-                        </div>                  
-                    @endforeach
-                @endif
                 
                 <form method="POST" action=" {{ route('admin.products.store') }}" enctype="multipart/form-data"> 
                     @csrf
@@ -34,6 +27,12 @@
                         <x-input-label for="thumbnail" :value="__('thumbnail')" />
                         <x-text-input id="thumbnail" class="block mt-1 w-full" type="file" name="thumbnail" required autofocus autocomplete="thumbnail" />
                         <x-input-error :messages="$errors->get('thumbnail')" class="mt-2" />
+                    </div>
+
+                    <div class="mt-4">
+                        <x-input-label for="file" :value="__('file')" />
+                        <x-text-input id="file" class="block mt-1 w-full" type="file" name="file" required autofocus autocomplete="file" />
+                        <x-input-error :messages="$errors->get('file')" class="mt-2" />
                     </div>
 
                     <div class="mt-4">

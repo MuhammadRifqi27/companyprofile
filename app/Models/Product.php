@@ -14,6 +14,7 @@ class Product extends Model
         'name',
         'tagline',
         'thumbnail',
+        'file',
         'about'
     ];
 
